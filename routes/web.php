@@ -44,9 +44,12 @@ Route::group(['middleware' => ['auth', 'admin'],], function(){
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
-    Route::middleware(['auth'])->group(function () {
-    // Route::get('/my-orders', [OrderController::class, 'userOrders'])->name('orders.user');
-});
+    Route::middleware(['auth', 'role:customer'])->group(function () {
+        Route::get('/customer/dashboard', [CustomerController::class, 'dashboard']);
+        Route::get('/customer/orders', [OrderController::class, 'index']);
+        Route::get('/customer/orders/create', [OrderController::class, 'create']);
+        Route::post('/customer/orders', [OrderController::class, 'store']);
+    });
 });
 
 require __DIR__.'/auth.php';

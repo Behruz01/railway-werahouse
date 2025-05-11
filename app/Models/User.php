@@ -96,8 +96,14 @@ class User extends Authenticatable
     /**
      * Check if the user has a specific role.
      */
-    public function hasRole(string $roleName): bool
+    public function hasRole(string $role): bool
     {
-        return $this->role->name === $roleName;
+        return $this->role === $role;
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
 }

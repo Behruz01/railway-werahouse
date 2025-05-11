@@ -17,10 +17,10 @@ class OrderController extends Controller
     {
         // If user is admin or manager, show all orders
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager')) {
-            $orders = Order::with(['user', 'wagon.train'])->get();
+            $orders = Order::with(['user', 'wagon.van'])->get();
         } else {
             // Otherwise, show only the user's orders
-            $orders = Order::with(['wagon.train'])
+            $orders = Order::with(['wagon.van'])
                 ->where('user_id', Auth::id())
                 ->get();
         }
@@ -33,7 +33,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $wagons = Wagon::with('train')->get();
+        $wagons = Wagon::with('van')->get();
         return view('orders.create', compact('wagons'));
     }
 
@@ -148,6 +148,6 @@ class OrderController extends Controller
             ->where('user_id', Auth::id())
             ->get();
         
-        return view('orders.user', compact('orders'));
+        return view('customer.dashboard', compact('orders'));
     }
 }

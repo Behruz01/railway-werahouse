@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RotaSeeder::class,
             ShiftSeeder::class,
             OrderSeeder::class,
+            WagonSeeder::class,
         ]);
 
     }

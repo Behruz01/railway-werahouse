@@ -132,6 +132,14 @@
                                     <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
                                 </div>
                             </form>
+
+                            <!-- Register Button -->
+                                <div class="text-center mt-3">
+                                    <p class="mb-0">Don't have an account?</p>
+                                    <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm mt-2">
+                                        Register
+                                    </a>
+                                </div>
                             <!-- End Form -->
                         </div>
                     </div>

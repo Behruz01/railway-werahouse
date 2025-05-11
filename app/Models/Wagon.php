@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wagon extends Model
 {
+    protected $table = 'wagons';
+
     use HasFactory;
 
     protected $fillable = [

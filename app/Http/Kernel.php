@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'api_version' => \App\Http\Middleware\APIVersion::class,
         'admin' => \App\Http\Middleware\CheckAdmin::class,
         'checkPassword' => \App\Http\Middleware\CheckPassword::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

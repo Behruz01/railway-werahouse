@@ -33,7 +33,6 @@ class Orders extends Component
     public function addOrder()
     {
         $this->validate([
-            'user_id' => 'required|exists:users,id',
             'order_number' => 'required|unique:orders,order_number',
             'description' => 'required',
             'status' => 'required|in:pending,processing,completed,cancelled',
@@ -41,7 +40,7 @@ class Orders extends Component
         ]);
 
         $data = [
-            'user_id' => $this->user_id,
+            'user_id' => auth()->id(),
             'wagon_id' => $this->wagon_id, // nullable
             'order_number' => $this->order_number,
             'description' => $this->description,
@@ -59,22 +58,30 @@ class Orders extends Component
     {
         $data = [];
 
-        if (isset($this->wagon_id)) {
+        if ($this->wagon_id !== null) {
             $data['wagon_id'] = $this->wagon_id;
         }
 
-        if (isset($this->status)) {
+        if ($this->status !== null) {
             $data['status'] = $this->status;
         }
 
-        if (isset($this->delivery_date)) {
+        if ($this->delivery_date !== null) {
             $data['delivery_date'] = $this->delivery_date;
+        }
+
+        if ($this->description !== null) {
+            $data['description'] = $this->description;
+        }
+
+        if ($this->order_number !== null) {
+            $data['order_number'] = $this->order_number;
         }
 
         $this->orderService->updateOrder($id, $data);
         $this->reset();
         $this->dispatchBrowserEvent('notify-updated', ['order' => $id]);
-        $this->emitSelf('notify-updated');
+        $this->emit('refreshOrders'); // jadvalni yangilash
     }
 
     public function delete($id)

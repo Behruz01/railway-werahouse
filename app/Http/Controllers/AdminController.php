@@ -8,6 +8,7 @@ use App\Services\DriverService;
 use App\Services\ShiftService;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -42,13 +43,12 @@ class AdminController extends Controller
         ]);
     }
 
-    public function profile($user)
+    public function profile(User $user)
     {
         $userDetails = $this->userService->getUserDetails($user);
-        // $colleagues = $this->userService->getUserColleagues($user);
+
         return view('profile', [
             'user' => $userDetails,
-            // 'colleagues' => $colleagues,
         ]);
     }
 

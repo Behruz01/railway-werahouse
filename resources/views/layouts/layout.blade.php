@@ -429,7 +429,7 @@
                             <span class="mt-4 dropdown-header">User Functions</span>
                             <small class="bi-three-dots nav-subtitle-replacer"></small>
 
-                            <a class="nav-link @yield('profile')" href="#!">
+                            <a class="nav-link @yield('profile')" href="{{ route('profile', ['user' => auth()->user()->uuid]) }}">
                                 <i class="bi-person nav-icon"></i>
                                 <span class="nav-link-title">My Profile</span>
                             </a>
