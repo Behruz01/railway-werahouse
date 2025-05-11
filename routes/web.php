@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'admin'],], function(){
         Route::get('admins', 'admins')->name('admins');
         Route::get('admins', 'vans')->name('vans');
         Route::get('wagons', 'wagons')->name('wagons');
+        Route::get('orders', 'orders')->name('orders');
         Route::get('rotas', 'rotas')->name('rotas');
         Route::get('add-shift', 'addShift')->name('addShift');
         Route::get('add-driver', 'addDriver')->name('addDriver');
@@ -44,7 +45,7 @@ Route::group(['middleware' => ['auth', 'admin'],], function(){
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
     Route::middleware(['auth'])->group(function () {
-    Route::get('/my-orders', [OrderController::class, 'userOrders'])->name('orders.user');
+    // Route::get('/my-orders', [OrderController::class, 'userOrders'])->name('orders.user');
 });
 });
 

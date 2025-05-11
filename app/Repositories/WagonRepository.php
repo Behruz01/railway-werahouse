@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 use App\Models\Wagon;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Log;
 
 class WagonRepository
 {
@@ -44,7 +43,6 @@ class WagonRepository
 
     public function save(array $data)
     {
-     Log::debug('Saving wagon data:', $data);
         return $this->wagon->create($data);
     }
 

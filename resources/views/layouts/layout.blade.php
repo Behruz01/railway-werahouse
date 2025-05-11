@@ -377,7 +377,7 @@
                                 </a>
 
                                 <div id="navbarVerticalMenuPagesOrdersMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
-                                    <a class="nav-link @yield('vans')" href="{{ route('vans') }}">Overview <span class="badge bg-info rounded-pill ms-1">New</span></a>
+                                    <a class="nav-link @yield('orders')" href="{{ route('orders') }}">Overview <span class="badge bg-info rounded-pill ms-1">New</span></a>
                                 </div>
                             </div>
                             <!-- End Collapse -->
