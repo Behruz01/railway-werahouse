@@ -21,7 +21,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['employee_id', 'role', 'email', 'username', 'password', 'last_login', 'avatar'];
+    protected $fillable = ['employee_id', 'role_id', 'email', 'username', 'password', 'last_login', 'avatar'];
 
     public static function booted()
     {
@@ -83,5 +83,21 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get the orders for the user.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Check if the user has a specific role.
+     */
+    public function hasRole(string $roleName): bool
+    {
+        return $this->role->name === $roleName;
     }
 }

@@ -6,7 +6,7 @@ use Faker\Provider\Fakecar;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\van>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Van>
  */
 class VanFactory extends Factory
 {
@@ -23,10 +23,11 @@ class VanFactory extends Factory
         $vehicle = $faker->vehicleArray;
 
         return [
-            'brand' => $vehicle['brand'],
-            'model' => $vehicle['model'],
-            'year' => $faker->year(),
+            'name' => $vehicle['brand'],
+            'year' => $faker->year(),  // Yil
             'reg' => $faker->vehicleRegistration(),
+            'capacity' => $faker->numberBetween(500, 5000),  // Kapanatlikni tasodifiy ravishda yaratish
+            'status' => $faker->randomElement(['active', 'inactive', 'maintenance']),  // Statusni tasodifiy ravishda tanlash
         ];
     }
 }

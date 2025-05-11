@@ -7,16 +7,17 @@ use App\Services\VanService;
 
 class Vans extends Component
 {
-    public $brand;
-    public $model;
+    public $name;
+    public $capacity;
+    public $status = 'maintenance';
     public $year;
     public $reg;
 
     private VanService $vanService;
 
     protected $messages = [
-        'brand.required' => 'A brand name is required',
-        'model.required' => 'The brand model is required',
+        'name.required' => 'A name name is required',
+        'capacity.required' => 'The train capacity is required',
         'year.required' =>'The brand year is required',
         'reg.required' =>'A van reg number is required',
     ];
@@ -37,21 +38,25 @@ class Vans extends Component
     public function update($id)
     {
     $data = [];
-        if(isset($this->brand)){
+        if(isset($this->name)){
             $data = [
-                'brand' => $this->brand,
+                'name' => $this->name,
             ];
-        }if(isset($this->model)){
+        }if(isset($this->capacity)){
             $data = [
-                'model' => $this->model,
+                'capacity' => $this->capacity,
+            ];
+        }if(isset($this->status)){
+            $data = [
+                'status' => $this->status,
             ];
         }if(isset($this->year)){
             $data = [
                 'year' => $this->year,
             ];
-        }if(isset($this->year)){
+        }if(isset($this->reg)){
             $data = [
-                'year' => $this->year,
+                'reg' => $this->reg,
             ];
         }
 
@@ -64,15 +69,15 @@ class Vans extends Component
     public function addVan()
     {
         $this->validate([
-            'brand' => 'required',
-            'model' => 'required',
+            'name' => 'required',
+            'capacity' => 'required',
             'year' =>'required',
             'reg' =>'required',
         ]);
 
         $data = [
-            'brand' => $this->brand,
-            'model' => $this->model,
+            'name' => $this->name,
+            'capacity' => $this->capacity,
             'year' => $this->year,
             'reg' => $this->reg,
         ];

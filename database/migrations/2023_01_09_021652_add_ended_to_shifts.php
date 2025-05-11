@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('shifts', function (Blueprint $table) {
-            $table->boolean('ended')->default(0)->after('end_time');
-        });
+        if (!Schema::hasColumn('shifts', 'ended')) {
+            Schema::table('shifts', function (Blueprint $table) {
+                $table->boolean('ended')->default(0)->after('end_time');
+            });
+        }
     }
 
     /**
@@ -26,7 +28,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('shifts', function (Blueprint $table) {
-            $table->boolean('ended');
+            $table->dropColumn('ended');
         });
     }
 };

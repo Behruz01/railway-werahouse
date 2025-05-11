@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Shifts jadvalini yaratish
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('clock_out_location')->nullable();
             $table->string('clock_in_ip')->nullable();
             $table->string('clock_out_ip')->nullable();
+            $table->tinyInteger('ended')->default(0); // Bu yerda ended ustunini qo'shamiz
             $table->timestamps();
         });
     }
@@ -39,6 +41,7 @@ return new class extends Migration
      */
     public function down()
     {
+        // Shifts jadvalini o'chirish
         Schema::dropIfExists('shifts');
     }
 };

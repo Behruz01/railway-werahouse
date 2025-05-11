@@ -29,18 +29,23 @@ Route::group(['middleware' => ['auth', 'admin'],], function(){
         Route::get('drivers', 'drivers')->name('drivers');
         Route::get('admins', 'admins')->name('admins');
         Route::get('admins', 'vans')->name('vans');
+        Route::get('wagons', 'wagons')->name('wagons');
         Route::get('rotas', 'rotas')->name('rotas');
         Route::get('add-shift', 'addShift')->name('addShift');
         Route::get('add-driver', 'addDriver')->name('addDriver');
         Route::get('add-admin', 'addAdmin')->name('addAdmin');
         Route::get('profile/{user:uuid}', 'profile')->name('profile');
         Route::get('settings/{user:uuid}', 'settings')->name('settings');
+        Route::resource('users', UserController::class);
     });
-    // Route::controller(ProfileController::class)->group(function () {
-    //     Route::get('/profile', 'edit')->name('profile.edit');
-    //     Route::patch('/profile', 'update')->name('profile.update');
-    //     Route::delete('/profile', 'destroy')->name('profile.destroy');
-    // });
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/my-orders', [OrderController::class, 'userOrders'])->name('orders.user');
+});
 });
 
 require __DIR__.'/auth.php';

@@ -331,10 +331,52 @@
                                     aria-controls="navbarVerticalMenuPagesVansMenu"
                                 >
                                     <i class="bi-truck nav-icon"></i>
-                                    <span class="nav-link-title">Vans</span>
+                                    <span class="nav-link-title">Trains</span>
                                 </a>
 
                                 <div id="navbarVerticalMenuPagesVansMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
+                                    <a class="nav-link @yield('vans')" href="{{ route('vans') }}">Overview <span class="badge bg-info rounded-pill ms-1">New</span></a>
+                                </div>
+                            </div>
+                            <!-- End Collapse -->
+
+                            <!-- Collapse -->
+                            <div class="nav-item">
+                                <a
+                                    class="nav-link dropdown-toggle @yield('wagons')"
+                                    href="#navbarVerticalMenuPagesWagonsMenu"
+                                    role="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#navbarVerticalMenuPagesWagonsMenu"
+                                    aria-expanded="true"
+                                    aria-controls="navbarVerticalMenuPagesWagonsMenu"
+                                >
+                                    <i class="bi-truck nav-icon"></i>
+                                    <span class="nav-link-title">Wagons</span>
+                                </a>
+
+                                <div id="navbarVerticalMenuPagesWagonsMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
+                                    <a class="nav-link @yield('wagons')" href="{{ route('wagons') }}">Overview <span class="badge bg-info rounded-pill ms-1">New</span></a>
+                                </div>
+                            </div>
+                            <!-- End Collapse -->
+
+                            <!-- Collapse -->
+                            <div class="nav-item">
+                                <a
+                                    class="nav-link dropdown-toggle @yield('orders')"
+                                    href="#navbarVerticalMenuPagesOrdersMenu"
+                                    role="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#navbarVerticalMenuPagesOrdersMenu"
+                                    aria-expanded="true"
+                                    aria-controls="navbarVerticalMenuPagesOrdersMenu"
+                                >
+                                    <i class="bi-box nav-icon"></i>
+                                    <span class="nav-link-title">Orders</span>
+                                </a>
+
+                                <div id="navbarVerticalMenuPagesOrdersMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
                                     <a class="nav-link @yield('vans')" href="{{ route('vans') }}">Overview <span class="badge bg-info rounded-pill ms-1">New</span></a>
                                 </div>
                             </div>

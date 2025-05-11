@@ -4,17 +4,17 @@
         <div class="page-header">
             <div class="row align-items-end">
                 <div class="mb-2 col-sm mb-sm-0">
-                    <h1 class="page-header-title">Trains</h1>
+                    <h1 class="page-header-title">Wagons</h1>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Trains</li>
+                        <li class="breadcrumb-item active">Wagons</li>
                     </ul>
                 </div>
                 <!-- End Col -->
 
                 <div class="col-sm-auto">
-                    <a class="btn btn-primary" href="javascript:;" data-bs-toggle="modal" data-bs-target="#addVanModal">
-                        <i class="bi-truck me-1"></i> Add train
+                    <a class="btn btn-primary" href="javascript:;" data-bs-toggle="modal" data-bs-target="#addWagonModal">
+                        <i class="bi-truck me-1"></i> Add wagon
                     </a>
                 </div>
                 <!-- End Col -->
@@ -34,7 +34,7 @@
                             <div class="input-group-prepend input-group-text">
                                 <i class="bi-search"></i>
                             </div>
-                            <input id="datatableSearch" type="search" class="form-control" placeholder="Search vans" aria-label="Search vans" />
+                            <input id="datatableSearch" type="search" class="form-control" placeholder="Search wagons" aria-label="Search wagons" />
                         </div>
                         <!-- End Search -->
                     </form>
@@ -87,17 +87,16 @@
                                     <label class="form-check-label" for="datatableCheckAll"></label>
                                 </div>
                             </th>
-                            <th class="table-column-ps-0">Name</th>
-                            <th>RegNo</th>
-                            <th>Year</th>
-                            <th>Status</th>
+                            <th class="table-column-ps-0">Van ID</th>
+                            <th>Wagon number</th>
                             <th>Capacity (T)</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse($vans as $van)
+                        @forelse($wagons as $wagon)
                         <tr>
                             <td class="table-column-pe-0">
                                     <div class="form-check">
@@ -106,114 +105,73 @@
                                     </div>
                                 </td>
                             <td class="table-column-ps-0">
-                                <span class="mb-0 d-block h5">{{ $van->name }}</span>
+                                <span class="mb-0 d-block h5">{{ $wagon->van_id }}</span>
                             </td>
                             <td>
-                                <span class="mb-0 d-block h5">{{ $van->reg }}</span>
+                                <span class="mb-0 d-block h5">{{ $wagon->wagon_number }}</span>
                             </td>
                             <td>
-                                <span class="mb-0 d-block h5">{{ $van->year }}</span>
+                                <span class="mb-0 d-block h5">{{ $wagon->capacity }}</span>
                             </td>
                             <td>
-                                <span class="mb-0 d-block h5">{{ $van->status }}</span>
-                            </td>
-                            <td>
-                                <span class="mb-0 d-block h5">{{ $van->capacity }}</span>
+                                <span class="mb-0 d-block h5">{{ $wagon->status }}</span>
                             </td>
 
                             <td>
-                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editVanModal{{ $van->id }}" class="btn btn-white btn-sm"><i class="bi-pencil-fill me-1"></i> Edit</a>
-                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#deleteVanModal{{ $van->id }}" class="btn btn-white btn-sm"><i class="bi-trash-fill me-1"></i> Delete</a>
+                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editWagonModal{{ $wagon->id }}" class="btn btn-white btn-sm"><i class="bi-pencil-fill me-1"></i> Edit</a>
+                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#deleteWagonModal{{ $wagon->id }}" class="btn btn-white btn-sm"><i class="bi-trash-fill me-1"></i> Delete</a>
                             </td>
                         </tr>
 
                         <!-- Edit Modal -->
-                        <div class="modal fade" id="editVanModal{{ $van->id }}" tabindex="-1" aria-labelledby="editVanModalLabel{{ $van->id }}" aria-hidden="true">
+                        <div class="modal fade" id="editWagonModal{{ $wagon->id }}" tabindex="-1" aria-labelledby="editWagonModalLabel{{ $wagon->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="editVanModalLabel{{ $van->id }}">Update {{ $van->reg.' ('.$van->brand.' '.$van->model.' '.$van->year.')' }}</h4>
+                                        <h4 class="modal-title" id="editWagonModalLabel{{ $wagon->id }}">Update {{ $wagon->id.' ('.$wagon->wagon_number.' '.$wagon->capacity.' '.$wagon->status.')' }}</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <!-- Body -->
                                     <div class="modal-body">
-                                        <form wire:submit.prevent='update({{ $van->id }})'>
-                                            <!-- Name -->
+                                        <form wire:submit.prevent='update({{ $wagon->id }})'>
+                                            <!-- Van ID -->
                                             <div class="row mb-4">
                                                 <div class="col-sm-3 mb-2 mb-sm-0">
                                                     <div class="d-flex align-items-center mt-2">
                                                         <i class="bi-truck nav-icon"></i>
-                                                        <div class="flex-grow-1">Name</div>
+                                                        <div class="flex-grow-1">Van ID</div>
                                                     </div>
                                                 </div>
                                                 <!-- End Col -->
 
                                                 <div class="col-sm">
-                                                    <label for="name" class="visually-hidden form-label">Name</label>
+                                                    <label for="van_id" class="visually-hidden form-label">Van ID</label>
 
-                                                    <input wire:model.defer='name' name="name" type="text" class="form-control" id="name" placeholder="{{ $van->name }}" aria-label="Name">
+                                                    <input wire:model.defer='van_id' name="van_id" type="text" class="form-control" id="van_id" placeholder="{{ $wagon->van_id }}" aria-label="Van ID">
                                                 </div>
                                                 <!-- End Col -->
                                             </div>
-                                            <!-- End Brand -->
+                                            <!-- End Van ID -->
 
-                                            <!-- Status -->
+                                            <!-- Wagon Number -->
                                             <div class="row mb-4">
                                                 <div class="col-sm-3 mb-2 mb-sm-0">
                                                     <div class="d-flex align-items-center mt-2">
                                                         <i class="bi-truck nav-icon"></i>
-                                                        <div class="flex-grow-1">Status</div>
+                                                        <div class="flex-grow-1">Wagon N</div>
                                                     </div>
                                                 </div>
                                                 <!-- End Col -->
 
                                                 <div class="col-sm">
-                                                    <label for="status" class="visually-hidden form-label">Status</label>
+                                                    <label for="wagon_number" class="visually-hidden form-label">Wagon N</label>
 
-                                                    <input wire:model.defer='status' name="status" type="text" class="form-control" id="status" placeholder="{{ $van->status }}" aria-label="Status">
+                                                    <input wire:wagon_number.defer='wagon_number' name="wagon_number" type="text" class="form-control" id="wagon_number" placeholder="{{ $wagon->wagon_number }}" aria-label="Wagon N">
                                                 </div>
                                                 <!-- End Col -->
                                             </div>
-                                            <!-- End Status -->
-
-                                            <!-- Year -->
-                                            <div class="row mb-4">
-                                                <div class="col-sm-3 mb-2 mb-sm-0">
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <i class="bi-truck nav-icon"></i>
-                                                        <div class="flex-grow-1">Year</div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Col -->
-
-                                                <div class="col-sm">
-                                                    <label for="year" class="visually-hidden form-label">Van Year</label>
-
-                                                    <input wire:model.defer='year' name="year" type="number" class="form-control" id="year" placeholder="{{ $van->year }}" aria-label="Van Year">
-                                                </div>
-                                                <!-- End Col -->
-                                            </div>
-                                            <!-- End Year -->
-
-                                            <!-- Reg -->
-                                            <div class="row mb-4">
-                                                <div class="col-sm-3 mb-2 mb-sm-0">
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <i class="bi-truck nav-icon"></i>
-                                                        <div class="flex-grow-1">Reg</div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Col -->
-
-                                                <div class="col-sm">
-                                                    <label for="reg" class="visually-hidden form-label">Van Reg</label>
-
-                                                    <input wire:model.defer='reg' name="reg" type="text" class="form-control" id="reg" placeholder="{{ $van->reg }}" aria-label="Van Reg">
-                                                </div>
-                                                <!-- End Col -->
-                                            </div>
-                                            <!-- End Reg -->
+                                            <!-- End Wagon Number -->
 
                                             <!-- Capacity -->
                                             <div class="row mb-4">
@@ -228,11 +186,30 @@
                                                 <div class="col-sm">
                                                     <label for="capacity" class="visually-hidden form-label">Capacity</label>
 
-                                                    <input wire:model.defer='capacity' name="capacity" type="text" class="form-control" id="capacity" placeholder="{{ $van->capacity }}" aria-label="Capacity">
+                                                    <input wire:model.defer='capacity' name="capacity" type="number" class="form-control" id="capacity" placeholder="{{ $wagon->capacity }}" aria-label="Capacity">
                                                 </div>
                                                 <!-- End Col -->
                                             </div>
-                                            <!-- End capacity -->
+                                            <!-- End Capacity -->
+
+                                            <!-- Status -->
+                                            <div class="row mb-4">
+                                                <div class="col-sm-3 mb-2 mb-sm-0">
+                                                    <div class="d-flex align-items-center mt-2">
+                                                        <i class="bi-truck nav-icon"></i>
+                                                        <div class="flex-grow-1">Status</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Col -->
+
+                                                <div class="col-sm">
+                                                    <label for="status" class="visually-hidden form-label">Status</label>
+
+                                                    <input wire:model.defer='status' name="status" type="text" class="form-control" id="status" placeholder="{{ $wagon->status }}" aria-label="Status">
+                                                </div>
+                                                <!-- End Col -->
+                                            </div>
+                                            <!-- End Status -->
 
                                     </div>
                                     <!-- End Body -->
@@ -240,7 +217,7 @@
                                     <!-- Footer -->
                                     <div class="modal-footer gap-3">
                                         <button type="button" id="discardFormt" class="btn btn-white" data-bs-dismiss="modal">Discard</button>
-                                        <button type="submit" id="processEvent" class="btn btn-primary">Update van</button>
+                                        <button type="submit" id="processEvent" class="btn btn-primary">Update wagon</button>
                                     </div>
                                     <!-- End Footer -->
                                 </form>
@@ -250,12 +227,12 @@
                         </div>
                         <!-- End Edit Modal -->
 
-                        <!-- Delete Van Modal -->
-                        <div class="modal fade" id="deleteVanModal{{ $van->id }}" tabindex="-1" aria-labelledby="deleteVanModalLabel{{ $van->id }}" aria-hidden="true">
+                        <!-- Delete Wagon Modal -->
+                        <div class="modal fade" id="deleteWagonModal{{ $wagon->id }}" tabindex="-1" aria-labelledby="deleteWagonModalLabel{{ $wagon->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="deleteVanModalLabel{{ $van->id }}">Delete {{ $van->reg.' ('.$van->brand.' '.$van->model.' '.$van->year.')' }} ?</h4>
+                                        <h4 class="modal-title" id="deleteWagonModalLabel{{ $wagon->id }}">Delete {{ $wagon->id.' ('.$wagon->wagon_number.' '.$wagon->capacity.' '.$wagon->status.')' }} ?</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
@@ -272,7 +249,7 @@
                                         </button>
 
                                         <div class="ms-auto">
-                                            <button wire:click='delete({{ $van->id }})' type="button" class="btn btn-danger">
+                                            <button wire:click='delete({{ $wagon->id }})' type="button" class="btn btn-danger">
                                                 Yes, delete <i class="bi-chevron-right"></i>
                                             </button>
                                         </div>
@@ -340,97 +317,97 @@
 
     </div>
 
-    <!-- Create a new Van Modal -->
-    <div class="modal fade" id="addVanModal" tabindex="-1" aria-labelledby="addVanModalLabel" aria-hidden="true">
+    <!-- Create a new Wagon -->
+    <div class="modal fade" id="addWagonModal" tabindex="-1" aria-labelledby="addWagonModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="addVanModalLabel">Add Van to Fleet</h4>
+                    <h4 class="modal-title" id="addWagonModalLabel">Add Wagon to Train</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- Body -->
                 <div class="modal-body">
-                    <form wire:submit.prevent='addVan'>
-                        <!-- Brand -->
+                    <form wire:submit.prevent='addWagon'>
+                        <!-- Van ID -->
                         <div class="row mb-4">
                             <div class="col-sm-3 mb-2 mb-sm-0">
                                 <div class="d-flex align-items-center mt-2">
                                     <i class="bi-truck nav-icon"></i>
-                                    <div class="flex-grow-1">Brand</div>
+                                    <div class="flex-grow-1">Van ID</div>
                                 </div>
                             </div>
                             <!-- End Col -->
 
                             <div class="col-sm">
-                                <label for="brand" class="visually-hidden form-label">Van Brand</label>
+                                <label for="van_id" class="visually-hidden form-label">Van ID</label>
 
-                                <input wire:model.defer='brand' name="brand" type="text" class="form-control" id="brand" placeholder="Van Brand" aria-label="Brand" required>
-                                @error('brand') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input wire:model.defer='van_id' name="van_id" type="text" class="form-control" id="van_id" placeholder="Van ID" aria-label="van_id" required>
+                                @error('van_id') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <!-- End Col -->
                         </div>
-                        <!-- End Brand -->
+                        <!-- End Van ID -->
 
-                        <!-- Model -->
+                        <!-- Wagon number -->
                         <div class="row mb-4">
                             <div class="col-sm-3 mb-2 mb-sm-0">
                                 <div class="d-flex align-items-center mt-2">
                                     <i class="bi-truck nav-icon"></i>
-                                    <div class="flex-grow-1">Model</div>
+                                    <div class="flex-grow-1">Wagon n</div>
                                 </div>
                             </div>
                             <!-- End Col -->
 
                             <div class="col-sm">
-                                <label for="model" class="visually-hidden form-label">Van Model</label>
+                                <label for="wagon_number" class="visually-hidden form-label">Wagon number</label>
 
-                                <input wire:model.defer='model' name="model" type="text" class="form-control" id="model" placeholder="Van Model" aria-label="Van Model">
-                                @error('model') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input wire:model.defer='wagon_number' name="wagon_number" type="text" class="form-control" id="wagon_number" placeholder="Wagon number" aria-label="Wagon number">
+                                @error('wagon_number') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <!-- End Col -->
                         </div>
-                        <!-- End Model -->
+                        <!-- End Wagon number -->
 
-                        <!-- Year -->
+                        <!-- Capacity -->
                         <div class="row mb-4">
                             <div class="col-sm-3 mb-2 mb-sm-0">
                                 <div class="d-flex align-items-center mt-2">
                                     <i class="bi-truck nav-icon"></i>
-                                    <div class="flex-grow-1">Year</div>
+                                    <div class="flex-grow-1">Capacity</div>
                                 </div>
                             </div>
                             <!-- End Col -->
 
                             <div class="col-sm">
-                                <label for="year" class="visually-hidden form-label">Van Year</label>
+                                <label for="capacity" class="visually-hidden form-label">Capacity</label>
 
-                                <input wire:model.defer='year' name="year" type="number" class="form-control" id="year" placeholder="Van Year" aria-label="Van Year">
-                                @error('year') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input wire:model.defer='capacity' name="capacity" type="number" class="form-control" id="capacity" placeholder="Capacity" aria-label="Capacity">
+                                @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <!-- End Col -->
                         </div>
-                        <!-- End Year -->
+                        <!-- End Capacity -->
 
-                        <!-- Reg -->
+                        <!-- Status -->
                         <div class="row mb-4">
                             <div class="col-sm-3 mb-2 mb-sm-0">
                                 <div class="d-flex align-items-center mt-2">
                                     <i class="bi-truck nav-icon"></i>
-                                    <div class="flex-grow-1">Reg</div>
+                                    <div class="flex-grow-1">Status</div>
                                 </div>
                             </div>
                             <!-- End Col -->
 
                             <div class="col-sm">
-                                <label for="reg" class="visually-hidden form-label">Van Reg</label>
+                                <label for="status" class="visually-hidden form-label">Status</label>
 
-                                <input wire:model.defer='reg' name="reg" type="text" class="form-control" id="reg" placeholder="Van Reg" aria-label="Van Reg">
-                                @error('reg') <span class="text-danger">{{ $message }}</span> @enderror
+                                <input wire:model.defer='status' name="status" type="text" class="form-control" id="status" placeholder="Status" aria-label="Status">
+                                @error('status') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <!-- End Col -->
                         </div>
-                        <!-- End Reg -->
+                        <!-- End Status -->
 
                 </div>
                 <!-- End Body -->
@@ -438,7 +415,7 @@
                 <!-- Footer -->
                 <div class="modal-footer gap-3">
                     <button type="button" id="discardFormt" class="btn btn-white" data-bs-dismiss="modal">Discard</button>
-                    <button type="submit" id="processEvent" class="btn btn-primary">Create van</button>
+                    <button type="submit" id="processEvent" class="btn btn-primary">Create wagon</button>
                 </div>
                 <!-- End Footer -->
             </form>
@@ -446,7 +423,7 @@
             </div>
         </div>
     </div>
-    <!-- End Create a new Van Modal -->
+    <!-- End Create a new Wagon Modal -->
 
     <!--Updated Toast -->
     <div x-data="{ open: false }" x-init="
@@ -463,7 +440,7 @@
                     <img class="avatar avatar-sm avatar-circle" src="{{ asset('admin-assets/img/others/success-icon.png') }}" alt="Image description">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                    <h5 class="mb-0">Van updated!</h5>
+                    <h5 class="mb-0">Wagon updated!</h5>
                     <small class="ms-auto">{{ now()->diffForHumans() }}</small>
                 </div>
                 <div class="text-end">
@@ -490,7 +467,7 @@
                     <img class="avatar avatar-sm avatar-circle" src="{{ asset('admin-assets/img/others/success-icon.png') }}" alt="Image description">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                    <h5 class="mb-0">Van deleted!</h5>
+                    <h5 class="mb-0">Wagon deleted!</h5>
                     <small class="ms-auto">{{ now()->diffForHumans() }}</small>
                 </div>
                 <div class="text-end">
@@ -517,7 +494,7 @@
                     <img class="avatar avatar-sm avatar-circle" src="{{ asset('admin-assets/img/others/success-icon.png') }}" alt="Image description">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                    <h5 class="mb-0">Van created!</h5>
+                    <h5 class="mb-0">Wagon created!</h5>
                     <small class="ms-auto">{{ now()->diffForHumans() }}</small>
                 </div>
                 <div class="text-end">
@@ -532,15 +509,15 @@
     @push('scripts')
         <script>
             window.addEventListener('notify-updated', event => {
-                $('#editVanModal'+event.detail.van).modal('hide');
+                $('#editWagonModal'+event.detail.wagon).modal('hide');
                 $('.modal-backdrop').remove();
             });
             window.addEventListener('notify-deleted', event => {
-                $('#deleteVanModal'+event.detail.van).modal('hide');
+                $('#deleteWagonModal'+event.detail.wagon).modal('hide');
                 $('.modal-backdrop').remove();
             });
             window.addEventListener('notify-created', event => {
-                $('#addVanModal').modal('hide');
+                $('#addWagonModal').modal('hide');
                 $('.modal-backdrop').remove();
             });
         </script>

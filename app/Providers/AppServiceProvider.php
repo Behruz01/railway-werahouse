@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-    }
+        // Register the CheckRole middleware
+        $this->app['router']->aliasMiddleware('check.role', \App\Http\Middleware\CheckRole::class);    }
 }

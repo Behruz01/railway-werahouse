@@ -90,4 +90,14 @@ class AdminController extends Controller
         return view('vans');
     }
 
+    public function wagons(): View
+    {
+        return view('wagons');
+    }
+
+    public function orders(): View
+    {
+        return view('orders');
+    }
+
 }
